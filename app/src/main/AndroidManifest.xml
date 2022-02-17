@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ss.dingding"
+    android:installLocation="internalOnly"
+    android:keepScreenOn="true"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <!-- .接收启动完成的广播权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.REBOOT"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!--    u0_a88    4612  245   548500 30432 ffffffff 00000000 S com.ss.dingding-->
+    <!--    u0_a88    4632  245   535780 23980 ffffffff 00000000 S com.ss.dingding:myService-->
+    <!--    u0_a88    5106  245   548556 30580 ffffffff 00000000 S com.ss.dingding-->
+    <!--    u0_a88    5123  245   535792 24044 ffffffff 00000000 S com.ss.dingding:myService-->
+    <!--    u0_a88    5147  245   517464 19800 ffffffff 00000000 S com.ss.dingding:service-->
+
+    <application
+        android:name=".MyAppliction"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FristActivity"
+            android:launchMode="singleTask" />
+
+        <receiver
+            android:name=".StartReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".MyService" />
+
+        <!--        <service-->
+        <!--            android:name=".CancelNoticeService"-->
+        <!--            android:enabled="true"-->
+        <!--            android:exported="true"-->
+        <!--            android:process=":service" />-->
+        <service android:name=".FloatWindowService" />
+        <service
+            android:name=".MyAccessibilityService"
+            android:enabled="true"
+            android:exported="true"
+            android:accessibilityFlags="flagRetrieveInteractiveWindows"
+            android:canRetrieveWindowContent="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:accessibilityFlags="flagRetrieveInteractiveWindows"
+                android:canRetrieveWindowContent="true"
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility" />
+        </service>
+    </application>
+
+</manifest>
